@@ -1,0 +1,6 @@
+language: rust
+rust:
+  - 1.35.0
+script:
+  - cargo build --verbose --all
+  - cargo test --verbose --all
