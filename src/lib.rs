@@ -59,8 +59,16 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 
     //TODO  2020-01-05
     let result = read_sensitive_words();
-    if let Ok(_) = result {
+    if let Ok(set) = result {
         println!("read OK");
+        println!("{:?}",set);
+
+        for word in set.into_iter(){
+            for ch in word.chars(){
+                print!("{} ",ch);
+            }
+            println!();
+        }
     }
 
     println!("length of set is {}",SENSITIVE_WORDS_SET.len());
@@ -120,22 +128,18 @@ Trust me.";
 }
 
 use std::collections::HashSet;
-fn read_sensitive_words() -> Result<(), Box<dyn Error>> {
+///
+///  敏感词过滤（DFA算法），参考Java代码：https://www.cnblogs.com/shihaiming/p/7048379.html
+///
+fn read_sensitive_words() -> Result<HashSet<String>, Box<dyn Error>> {
     let contents = fs::read_to_string("sensitive_words.txt")?;
     let sensitive_words = contents.lines();
 
-    let mut sensitive_words_map = HashSet::<&str>::new();
+    let mut sensitive_words_map = HashSet::<String>::new();
     for line in sensitive_words {
         println!("{}", line);
-        sensitive_words_map.insert(&line);
+        sensitive_words_map.insert(line.to_owned());
     }
 
-    println!("{:?}", sensitive_words_map);
-    let mut a: HashSet<i32> = vec![1i32, 2, 3].into_iter().collect();
-    //    let mut b: HashSet<i32> = vec!(2i32, 3, 4).into_iter().collect();
-
-    assert!(a.insert(4));
-    assert!(a.contains(&4));
-
-    Ok(())
+    Ok(sensitive_words_map)
 }
