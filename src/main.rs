@@ -19,5 +19,8 @@ fn main() {
             panic!("There are some errors")
         }
     };
+
+    //TODO 敏感词校验
+
 }
 
