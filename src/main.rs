@@ -1,26 +1,20 @@
+use minigrep;
 use std::env;
 use std::process;
-use minigrep;
 fn main() {
     let args = env::args();
     let result = minigrep::Config::new(args);
 
     let _result = match result {
-        Ok(_config) => {
-            println!("Searching for {}", _config.query);
-            println!("In file {}", _config.filename);
+        Ok(config) => {
+            println!("Searching for {}", config.query);
+            println!("In file {}", config.filename);
 
-            if let Err(e) = minigrep::run(_config) {
+            if let Err(e) = minigrep::run(config) {
                 println!("Application error: {}", e);
                 process::exit(1);
             }
         }
-        Err(_error) => {
-            panic!("There are some errors")
-        }
+        Err(error) => panic!("There are some errors : {}", error),
     };
-
-    //TODO 敏感词校验
-
 }
-

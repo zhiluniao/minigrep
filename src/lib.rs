@@ -38,7 +38,7 @@ lazy_static! {
     static ref SENSITIVE_WORDS_SET: HashSet<&'static str> = {
         let mut set = HashSet::<&str>::new();
         set.insert("demo");
-        println!("{:?}",set);
+        println!("{:?}", set);
         set
     };
 }
@@ -57,21 +57,21 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
         println!("{}", line);
     }
 
-    //TODO  2020-01-05
+    //  2020-01-05
     let result = read_sensitive_words();
     if let Ok(set) = result {
         println!("read OK");
-        println!("{:?}",set);
+        println!("{:?}", set);
 
-        for word in set.into_iter(){
-            for ch in word.chars(){
-                print!("{} ",ch);
+        for word in set.into_iter() {
+            for ch in word.chars() {
+                print!("{} ", ch);
             }
             println!();
         }
     }
 
-    println!("length of set is {}",SENSITIVE_WORDS_SET.len());
+    println!("length of set is {}", SENSITIVE_WORDS_SET.len());
 
     Ok(())
 }
